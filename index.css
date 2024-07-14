@@ -1,0 +1,129 @@
+/*
+COLOR PALETTE
+
+BLACK: #000000
+
+WHITE: #FFFFFF
+LIGHT: #FDF7F4
+
+ORANGE: #FFD18C
+DARK ORANGE: #FFA724
+*/
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    font-family: "Inter", sans-serif;
+    background-color: #E5E7EB;
+}
+
+.container {
+    max-width: 1440px;
+    min-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #FDF7F4;
+    padding: 1px;
+}
+
+/* Header section */
+
+header, button {
+    background-color: #FFFFFF;
+}
+
+nav {
+    font-size: 25px;
+    font-weight: 400;
+}
+
+ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 50px;
+    list-style-type: none;
+    background: #FFD18C;
+    padding: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #000000;
+}
+
+a:hover,
+a:focus {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.logo {
+    width: 360px;
+    padding: 45px;
+}
+
+/* Section buttons */
+
+.btn {
+    border: 5px solid #FFA724;
+    border-radius: 50px;
+    font-size: 30px;
+    font-weight: 700;
+    padding: 15px 20px;
+    margin: 33px 0 42px 0;
+    cursor: pointer;
+    min-width: 175px; 
+    max-width: 250px;
+    
+}
+
+.btn:hover {
+    background-color: #FFA724;
+}
+
+.pay-btn {
+    margin-right: 8px;
+}
+
+.transfer-btn {
+    margin-left: 8px;
+}
+
+/* Accounts section */
+.accounts {
+    margin: 0 auto;
+    max-width: 730px;
+    text-align: left;
+    margin-bottom: 90px;
+
+}
+
+.accounts h1 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.account-pill {
+    padding: 30px 45px;
+    background-color: #FFFFFF;
+    border: 5px solid #FFA724;
+    border-radius: 15px;
+    margin-bottom: 12px;
+    font-size: 25px;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.accounts .account-pill:focus {
+    background-color: #FFD18C;
+}
