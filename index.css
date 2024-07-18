@@ -24,7 +24,7 @@ html, body {
 }
 
 .container {
-    max-width: 1440px;
+    /* max-width: 1440px; */
     min-width: 400px;
     margin: 0 auto;
     text-align: center;
@@ -70,7 +70,6 @@ a:focus {
 }
 
 /* Section buttons */
-
 .btn {
     border: 5px solid #FFA724;
     border-radius: 50px;
@@ -97,22 +96,43 @@ a:focus {
 }
 
 /* Accounts section */
-.accounts {
+.finances {
     margin: 0 auto;
+    width: 80%;
+}
+
+.finances-flex {
+  display: flex;
+  /* justify-content: stretch;
+  flex: 0 0 auto; */
+  /* flex-wrap: wrap; */
+  /* flex-direction: row;
+  justify-content: space-around; */
+  gap: 40px;
+  margin: 0 170px;
+}
+
+.accounts, .expenses {
+    /* margin: 0 auto; */
     max-width: 730px;
-    text-align: left;
-    margin-bottom: 90px;
+    /* min-width: 530px; */
+    
+    margin: 0 auto 90px;
+    width: 100%;
+    /* display: flex;
+    flex-direction: column; */
 
 }
 
-.accounts h1 {
+.accounts h1, .expenses h1 {
     font-size: 40px;
     font-weight: 700;
     margin-bottom: 25px;
+    text-align: left;
 }
 
 .account-pill {
-    padding: 30px 45px;
+    padding: 40px 45px;
     background-color: #FFFFFF;
     border: 5px solid #FFA724;
     border-radius: 15px;
@@ -121,9 +141,19 @@ a:focus {
     font-weight: 700;
     display: flex;
     justify-content: space-between;
-    position: relative;
+    max-width: 730px;
+    /* position: relative; */
 }
 
 .accounts .account-pill:focus {
     background-color: #FFD18C;
+}
+
+.expense-pill {
+    padding: 15px 15px;
+    background-color: #FFA724;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
 }
