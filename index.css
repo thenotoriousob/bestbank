@@ -1,15 +1,3 @@
-/*
-COLOR PALETTE
-
-BLACK: #000000
-
-WHITE: #FFFFFF
-LIGHT: #FDF7F4
-
-ORANGE: #FFD18C
-DARK ORANGE: #FFA724
-*/
-
 *,
 *::before,
 *::after {
@@ -24,63 +12,101 @@ html, body {
 }
 
 .container {
-    /* max-width: 1440px; */
-    min-width: 400px;
-    margin: 0 auto;
+    min-width: 31.25rem;
     text-align: center;
     background-color: #FDF7F4;
-    padding: 1px;
 }
 
-/* Header section */
-
+/* Header section - Start */
 header, button {
     background-color: #FFFFFF;
 }
 
-nav {
-    font-size: 25px;
-    font-weight: 400;
-}
-
-ul {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 50px;
-    list-style-type: none;
-    background: #FFD18C;
-    padding: 20px;
-}
-
-a {
-    text-decoration: none;
-    color: #000000;
-}
-
-a:hover,
-a:focus {
-    cursor: pointer;
-    text-decoration: underline;
+/* I was having the same thought here about not wanting to leave out the h1
+but it didn't seem appropriate for the Accounts and Spendings headers. Found
+the solution in the code help channel. Thanks to Vincent for asking the question
+and Geoffrey for the answer :) */
+.sr-only {
+    border: 0 !important;
+    clip: rect(1px, 1px, 1px, 1px) !important; 
+    -webkit-clip-path: inset(50%) !important;
+        clip-path: inset(50%) !important; 
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    white-space: nowrap !important;            
 }
 
 .logo {
-    width: 360px;
-    padding: 45px;
+    width: 22.5rem;
+    padding: 2.8125rem;
 }
 
-/* Section buttons */
-.btn {
-    border: 5px solid #FFA724;
-    border-radius: 50px;
-    font-size: 30px;
+.home-page-nav {
+    font-size: 1.5625rem;
+    font-weight: 400;
+}
+
+.home-page-nav-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 3.125rem;
+    list-style-type: none;
+    background: #FFD18C;
+    padding: 1.25rem;
+}
+
+/* The first item on the menu design is in bold */
+.home-page-nav-list-item:first-child {
     font-weight: 700;
-    padding: 15px 20px;
-    margin: 33px 0 42px 0;
+}
+
+.home-page-nav-link {
+    text-decoration: none;
+    /* Needed for the underline */
+    position: relative;
+    color: #000000;
+    padding: 0.2em 0;
+}
+
+/* Code for the underline to transition - Set up */
+.home-page-nav-link:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.1em;
+    background-color: #000000;
+    opacity: 1;
+    transform: scale(0);
+    transform-origin: center;
+    transition: transform 300ms;
+}
+
+/* Code for the underline to transition - View on hover */
+.home-page-nav-link:hover:after,
+.home-page-nav-link:focus:after{
+    transform: scale(1);
+} 
+
+/* Header section - End */
+
+/* Buttons section - Start */
+.btn {
+    border: 0.3125rem solid #FFA724;
+    border-radius: 3.125rem;
+    font-size: 1.875rem;
+    font-weight: 700;
+    padding: 1rem 1.25rem;
+    margin: 2rem 0 2.625rem 0;
     cursor: pointer;
-    min-width: 175px; 
-    max-width: 250px;
-    
+    min-width: 11rem; 
+    max-width: 15.625rem;
 }
 
 .btn:hover {
@@ -88,72 +114,83 @@ a:focus {
 }
 
 .pay-btn {
-    margin-right: 8px;
+    margin-right: 0.5rem;
 }
 
 .transfer-btn {
-    margin-left: 8px;
+    margin-left: 0.5rem;
 }
 
-/* Accounts section */
-.finances {
+/* Buttons section - End */
+
+/* Accounts section - Start */
+/* This is the class when only the accounts are showing */
+.finances-container {
     margin: 0 auto;
-    width: 80%;
+    /* Stop collapsing margin */
+    padding-bottom: 1px;
 }
 
-.finances-flex {
-  display: flex;
-  /* justify-content: stretch;
-  flex: 0 0 auto; */
-  /* flex-wrap: wrap; */
-  /* flex-direction: row;
-  justify-content: space-around; */
-  gap: 40px;
-  margin: 0 170px;
+/* This is the class when an account is selected and spendings are shown */
+.finances-container-flex {
+    display: flex;
+    max-width: 87.5rem;
+    gap: 2.5rem;
+    margin: 0 auto;
+    padding: 0 1.25rem;
 }
 
-.accounts, .expenses {
-    /* margin: 0 auto; */
-    max-width: 730px;
-    /* min-width: 530px; */
-    
-    margin: 0 auto 90px;
+.accounts, .spendings {
+    max-width: 45.625rem;
+    margin: 0 auto 38px;
+    /* The sections should fill the container rather than shrinking for the content */
     width: 100%;
-    /* display: flex;
-    flex-direction: column; */
-
 }
 
-.accounts h1, .expenses h1 {
-    font-size: 40px;
+.accounts h2, .spendings h2 {
+    font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 25px;
+    margin-bottom: 1.5625rem;
     text-align: left;
 }
 
 .account-pill {
-    padding: 40px 45px;
+    padding: 2.1875rem 2.8125rem;
     background-color: #FFFFFF;
     border: 5px solid #FFA724;
-    border-radius: 15px;
-    margin-bottom: 12px;
-    font-size: 25px;
+    border-radius: 1rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.5625rem;
     font-weight: 700;
     display: flex;
     justify-content: space-between;
-    max-width: 730px;
-    /* position: relative; */
+    max-width: 45.625rem;
+    min-width: 25rem;
 }
 
-.accounts .account-pill:focus {
+/* Needed so the child elements of account-pill trigger the onclick of the parent */
+.account-pill p {
+    pointer-events: none;
+}
+
+.account-pill:hover,
+.spending-pill:hover {
+    transform: scale(1.05);
     background-color: #FFD18C;
 }
 
-.expense-pill {
-    padding: 15px 15px;
+.spending-pill {
+    padding: 0.75rem 1rem;
     background-color: #FFA724;
-    border-radius: 15px;
-    margin-bottom: 20px;
+    border-radius: 1rem;
     display: flex;
     justify-content: space-between;
+    font-size: 20px;
+    font-weight: 700;
+    color: #000000;
+    min-width: 15.625rem;
+    gap: 0.625rem;
+    margin-bottom: 1.25rem;
 }
+
+/* Accounts section - End */

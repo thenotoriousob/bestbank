@@ -1,30 +1,18 @@
 import { accounts } from "./data.js";
 
 const accountsListEl = document.getElementById("accounts-list");
-const expensesListEl = document.getElementById("expenses-list");
-const financesEl = document.getElementById("finances");
+const spendingsListEl = document.getElementById("spendings-list");
+const financesContainerEl = document.getElementById("finances-container");
+const financeFlexContainerClass = "finances-container-flex";
+const financeContainerClass = "finances-container";
 
 
 document.addEventListener("click", function(e) {
-
-    if (e.target.id) {
+    /* Only interested when an account pill is selected */
+    if (e.target.classList.value === "account-pill") {
         handleAccountClick(Number(e.target.id));
     }
 });
-
-function renderAccounts() {
-
-    accountsListEl.innerHTML = "<h1>Accounts</h1>";
-    accounts.forEach(function(account) {
-      accountsListEl.innerHTML += `
-                        <div class="account-pill" id="${account.id}">
-                            <p>${account.title}</p>
-                            <p>${formatAmount(account.balance)}</p>
-                        </div>
-                        `;
-    });
-
-}
 
 function handleAccountClick(accountId) {
 
@@ -37,57 +25,56 @@ function handleAccountClick(accountId) {
             return true;
         } else {
             account.isSelected = false;
-            document.getElementById(account.id).style.backgroundColor = "#FFFFFF";
+            // Just setting the background color to blank stops the hover working, remove the property instead
+            document.getElementById(account.id).style.removeProperty('background-color')
             return false;
         }
     })[0];
 
     /* If we have an account that is selected then render it, otherwise hide
-       the expenses column as there are no accounts currently selected */
+       the spendings column as there are no accounts currently selected */
     if (accountObj) {
-        renderExpenses(accountObj);
+        renderSpendings(accountObj);
     } else {
-        expensesListEl.style.display = "none";
+        spendingsListEl.style.display = "none";
     }
 
 }
 
-function renderExpenses(accountObj) {
+function renderAccounts() {
 
-    /* If we are rendering expenses make sure the display is not hidden */
-    expensesListEl.style.display = "";
+    accountsListEl.innerHTML = "<h2>Accounts</h2>";
+    accounts.forEach(function(account) {
+      accountsListEl.innerHTML += `
+                        <div class="account-pill" id="${account.id}">
+                            <p><nobr>${account.title}</nobr></p>
+                            <p>${formatAmount(account.balance)}</p>
+                        </div>
+                        `;
+    });
+
+}
+
+function renderSpendings(accountObj) {
+
         
-    expensesListEl.innerHTML = "<h1>Expenses</h1>";
+    spendingsListEl.innerHTML = "<h2>Spendings</h2>";
 
     accountObj.spendings.forEach(function(spending) {
-            expensesListEl.innerHTML += `
-                        <div class="expense-pill">
+            spendingsListEl.innerHTML += `
+                        <div class="spending-pill">
                             <p>${spending.category}</p>
                             <p>${formatAmount(spending.spent)}</p>
                         </div>
                         `;
     });
 
-    if (accountObj.isSelected) {
-        financesEl.classList.add("finances-flex");
-        financesEl.classList.remove("finances");
-    } else {
-        financesEl.classList.remove("finances-flex");
-        financesEl.classList.add("finances");
-    }
+    addOrRemoveFlexContainerClass(accountObj.isSelected);
 
-    calculateExpensePillWidth();
+    calculateSpendingPillWidth();
 
-}
-
-function calculateExpensePillWidth() {
-
-    const expensePillEls = Array.from(document.getElementsByClassName("expense-pill"));
-
-    expensePillEls.forEach(function(expensePill, index) {
-
-        expensePill.style.width = `${100 - (index * 15)}%`
-    })
+    /* If we are rendering spendings make sure the display is not hidden */
+    spendingsListEl.style.display = "";
 
 }
 
@@ -99,6 +86,27 @@ function formatAmount(amount) {
                                                 currency: 'USD',
                                             });
     return formatter.format(amount);
+}
+
+function addOrRemoveFlexContainerClass(addFlex) {
+    if (addFlex) {
+        financesContainerEl.classList.add(financeFlexContainerClass);
+        financesContainerEl.classList.remove(financeContainerClass);
+    } else {
+        financesContainerEl.classList.remove(financeFlexContainerClass);
+        financesContainerEl.classList.add(financeContainerClass);
+    }
+}
+
+function calculateSpendingPillWidth() {
+
+    const spendingPillEls = Array.from(document.getElementsByClassName("spending-pill"));
+
+    spendingPillEls.forEach(function(spendingPill, index) {
+
+        spendingPill.style.width = `${100 - (index * 15)}%`
+    })
+
 }
 
 renderAccounts();
