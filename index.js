@@ -1,15 +1,13 @@
 import { accounts } from "./data.js";
 
-const accountsListEl = document.getElementById("accounts-list");
-const spendingsListEl = document.getElementById("spendings-list");
-const financesContainerEl = document.getElementById("finances-container");
 const financeFlexContainerClass = "finances-container-flex";
 const financeContainerClass = "finances-container";
+const selectedAccountBackgroundColor = "#FFD18C";
 
 
 document.addEventListener("click", function(e) {
     /* Only interested when an account pill is selected */
-    if (e.target.classList.value === "account-pill") {
+    if (e.target.classList.value.includes("account-pill")) {
         handleAccountClick(Number(e.target.id));
     }
 });
@@ -21,7 +19,7 @@ function handleAccountClick(accountId) {
     const accountObj = accounts.filter(function(account) {
         if (account.id === accountId && !account.isSelected) {
             account.isSelected = true;
-            document.getElementById(account.id).style.backgroundColor = "#FFD18C";
+            document.getElementById(account.id).style.backgroundColor = selectedAccountBackgroundColor;
             return true;
         } else {
             account.isSelected = false;
@@ -31,22 +29,18 @@ function handleAccountClick(accountId) {
         }
     })[0];
 
-    /* If we have an account that is selected then render it, otherwise hide
-       the spendings column as there are no accounts currently selected */
-    if (accountObj) {
-        renderSpendings(accountObj);
-    } else {
-        spendingsListEl.style.display = "none";
-    }
+    renderSpendings(accountObj);
 
 }
 
 function renderAccounts() {
 
-    accountsListEl.innerHTML = "<h2>Accounts</h2>";
+    const accountsListEl = document.getElementById("accounts-list");
+
+    accountsListEl.innerHTML = `<h2 class="dark-text">Accounts</h2>`;
     accounts.forEach(function(account) {
       accountsListEl.innerHTML += `
-                        <div class="account-pill" id="${account.id}">
+                        <div class="account-pill dark-text" id="${account.id}">
                             <p><nobr>${account.title}</nobr></p>
                             <p>${formatAmount(account.balance)}</p>
                         </div>
@@ -57,24 +51,32 @@ function renderAccounts() {
 
 function renderSpendings(accountObj) {
 
-        
-    spendingsListEl.innerHTML = "<h2>Spendings</h2>";
+    const spendingsListEl = document.getElementById("spendings-list");
 
-    accountObj.spendings.forEach(function(spending) {
-            spendingsListEl.innerHTML += `
-                        <div class="spending-pill">
-                            <p>${spending.category}</p>
-                            <p>${formatAmount(spending.spent)}</p>
-                        </div>
-                        `;
-    });
+    if (accountObj) {
+        spendingsListEl.innerHTML = `<h2 class="dark-text">Spendings</h2>`;
 
-    addOrRemoveFlexContainerClass(accountObj.isSelected);
+        accountObj.spendings.forEach(function(spending) {
+                spendingsListEl.innerHTML += `
+                            <div class="spending-pill dark-text">
+                                <p>${spending.category}</p>
+                                <p>${formatAmount(spending.spent)}</p>
+                            </div>
+                            `;
+        });
 
-    calculateSpendingPillWidth();
+        addOrRemoveFlexContainerClass(accountObj.isSelected);
 
-    /* If we are rendering spendings make sure the display is not hidden */
-    spendingsListEl.style.display = "";
+        calculateSpendingPillWidth();
+
+        /* If we are rendering spendings make sure the display is not hidden */
+        spendingsListEl.style.display = "";
+    } 
+    /* If we have an account that is selected then render it, otherwise hide
+       the spendings column as there are no accounts currently selected */
+    else {
+        spendingsListEl.style.display = "none";
+    }
 
 }
 
@@ -89,6 +91,9 @@ function formatAmount(amount) {
 }
 
 function addOrRemoveFlexContainerClass(addFlex) {
+
+    const financesContainerEl = document.getElementById("finances-container");
+
     if (addFlex) {
         financesContainerEl.classList.add(financeFlexContainerClass);
         financesContainerEl.classList.remove(financeContainerClass);
@@ -103,7 +108,6 @@ function calculateSpendingPillWidth() {
     const spendingPillEls = Array.from(document.getElementsByClassName("spending-pill"));
 
     spendingPillEls.forEach(function(spendingPill, index) {
-
         spendingPill.style.width = `${100 - (index * 15)}%`
     })
 
